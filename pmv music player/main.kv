@@ -1,0 +1,371 @@
+<Audio_box>:
+    orientation: 'vertical'
+    
+    Sliders:
+        size_hint: None, None
+        size: dp(60), dp(60)
+        pos_hint:{'center_x':.5, 'center_y':.5}
+     
+            
+
+<Sliders>:
+    orientation: 'vertical'
+    
+    canvas:
+        Color:
+            rgba: 0,0,0,.3
+
+        SmoothLine:
+            ellipse: self.x, self.y, self.width,self.height, -120,120
+
+        Ellipse:
+            group: 'dark'
+            size: self.size
+            pos: self.pos
+            angle_start: -120
+            angle_end: 120
+
+        Color:
+            rgba: 1, .32, .43, 1
+
+        Ellipse:
+            group: 'light'
+            size: self.size
+            pos: self.pos
+            angle_start: -120
+            angle_end: -100
+       
+        Color:
+            rgba: .46, .32, .43, 1
+
+        SmoothLine:
+            ellipse: self.pos[0] + dp(2), self.pos[1] + dp(2), self.size[0] - dp(4), self.size[1] - dp(4), -120,120
+
+        Ellipse:
+            group: 'block0'
+            size: self.size[0] - dp(4), self.size[1] - dp(4)
+            pos: self.pos[0] + dp(2), self.pos[1] + dp(2)
+
+        Color:
+            rgba: 1,1,1,.03
+
+        Ellipse:
+            group: 'block1'
+            size: self.size[0] - dp(4), self.size[1] - dp(4)
+            pos: self.pos[0] + dp(2), self.pos[1] + dp(2)
+            
+
+        
+<Recently_added_songs>:
+    canvas.before:
+        Color:
+            rgba: 1,1,1,1
+        RoundedRectangle:
+            size: self.shadow_size1
+            pos: self.shadow_pos1
+            texture: self.shadow_texture1
+            radius:  5,5,5,5
+            
+        RoundedRectangle:
+            size: self.shadow_size2
+            pos: self.shadow_pos2
+            texture: self.shadow_texture2
+            radius:  5,5,5,5
+        Color:
+            rgba: 1,1,1,1
+            
+        RoundedRectangle:
+            source: root.source
+            size: self.size
+            pos: self.pos
+            radius: 5,5,5,5
+    elevation: 2
+    orientation: 'vertical'
+       
+    BoxLayout:
+        size_hint_y: None
+        height: dp(30)
+        padding: dp(5), 0,0,0
+        MDLabel:
+            canvas.before:
+                Color:
+                    rgba: 0,0,0,.2
+
+                RoundedRectangle:
+                    size: self.size
+                    pos: self.pos
+                    
+            text: root.text
+            halign: 'left'
+            shorten: True
+            shorten_from: 'right'
+            color: 1,1,1,1
+    
+
+<Circle_clickabe_image>:
+    canvas.before:
+        Color:
+            group: 'a'
+            rgba: .56, .4, .46, 1
+
+        Ellipse:
+            size: self.size[0] + dp(10), self.size[1] + dp(10)
+            pos: self.pos[0] - dp(5), self.pos[1] - dp(5)
+
+        SmoothLine:
+            ellipse: self.x  - dp(5), self.y  - dp(5), self.width + dp(10), self.height + dp(10)
+            
+    source: root.source
+    size_hint: None, None
+    size: dp(16), dp(16)
+    mipmap: True
+    allow_stretch: True
+    keep_ratio: False
+    nocache: True
+
+<MDSeparator>
+    canvas:
+        Color:
+            rgba: root.color
+        Rectangle:
+            size: self.size
+            pos: self.pos
+            
+<MDLabel>:
+    font_name: 'fonts/Rubik-Black.ttf' if self.font_style == 'Title' else 'fonts/Rubik-Regular.ttf' if self.font_style == 'Subhead' else 'fonts/Rubik-Light.ttf' 
+    font_size: '12sp' if root.font_style == 'Caption' else '12sp'
+    text_size: (self.width, None)
+    size: self.texture_size
+    markup: True
+    color: 0,0,0,1
+
+<All_tracks>:
+    padding: 0,0,dp(3),0
+    spacing: dp(5)
+    size_hint_y: None
+    height: dp(30)
+    orientation: 'vertical'
+    
+    MDLabel:
+        text: 'All tracks'
+        size_hint_y: None
+        height: dp(30)
+        halign: 'left'
+        font_style: 'Caption'
+        color: 1,1,1, .8
+
+    MDSeparator:
+        color: 1,1,1,.2
+        
+<Pointer_ball>:
+    size_hint: None, None
+    size: dp(80),dp(80)
+    opacity: 0
+
+    BoxLayout:
+        size_hint_x:.5
+        MDLabel:
+            canvas.before:
+                Color:
+                    rgba: 1,1,1,.95
+
+                Ellipse:
+                    source: 'pics/pointer.png'
+                    size: self.size
+                    pos: self.pos
+
+            text: root.text
+            color: 1,1,1,1
+            size_hint: .5,.5
+            halign: 'center'
+            pos_hint: {'center_y':.5, 'center_x':.5}
+            
+    BoxLayout:
+        size_hint_x:.5               
+                
+<Letter_widget>:
+    canvas:
+        Color:
+            rgba: 1,1,1, .2
+
+        SmoothLine:
+            rounded_rectangle: self.x, self.y, self.width, self.height, dp(5)
+            width: dp(1)
+
+<Scrollview_tracks>:
+    padding: dp(16), 0 , dp(8),0
+    box: box
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        All_tracks:
+        ScrollView:
+            bar_width: dp(0)
+            BoxLayout:
+                id: box
+                size_hint_y: None
+                height: self.minimum_height
+                orientation: 'vertical'
+                
+            
+                
+    BoxLayout:
+        padding: 0,dp(13),0,dp(8)
+        size_hint_x: None
+        width: dp(14)
+        
+        Letter_widget:     
+            id: letters_hand
+
+<Object_details>:
+    Image:
+        source: root.source
+        mipmap: True
+        size_hint: None, None
+        size: dp(64), dp(64)
+        allow_stretch: True
+        keep_ratio: False
+        nocache: True
+        pos_hint: {'center_x':.5, 'center_y':.5}
+
+    BoxLayout:
+        orientation: 'vertical'
+
+        MDLabel:
+            text: root.song_name
+            color: 1,1,1,1
+            font_style: 'Subhead'
+
+        MDLabel:
+            text: '%s   %s'%(root.artsist_name, root.song_minutes)
+            color: 1,1,1, .3
+            font_style: 'Caption'
+
+<Track_items>:
+    spacing: dp(16)
+    size_hint_y: None
+    height: dp(60)
+    orientation: 'vertical'
+
+    Object_details:
+        source: root.source
+        song_name: root.song_name
+        artsist_name: root.artsist_name
+        song_minutes: root.song_minutes
+        
+    
+<Body>:
+    canvas:
+        Color:
+            rgba: .46, .32, .43, 1
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+        Color:
+            rgba: 1,1,1,.03
+
+        Rectangle:
+            size: self.size
+            pos: self.pos
+
+    scrll_track: scrll_track
+            
+    Screen:
+        name: 'Tracks'
+
+        BoxLayout:
+            orientation: 'vertical'
+            padding: 0, dp(16), 0,0
+
+            BoxLayout:
+                padding: dp(16),0, dp(16),0
+                spacing: dp(8)
+                size_hint_y: None
+                height: dp(30)
+                
+                Circle_clickabe_image:
+                    source: 'pics/menu.png'
+                    oolor: 1,1,1, .9
+                    color_down: .46, .32, .5, .5
+                    color_up: .56, .4, .46, 1
+                    
+                    pos_hint: {'center_y':.5}
+
+                MDLabel:
+                    text: 'Tracks'
+                    halign: 'center'
+                    color: 1,1,1,.8
+                    font_style: 'Subhead'
+                    color: 1,1,1,.8
+
+                Circle_clickabe_image:
+                    source: 'pics/search.png'
+                    oolor: 1,1,1,.5
+                    color_down: .46, .32, .43, .5
+                    color_up: .56, .4, .46, 1
+                    
+                    pos_hint: {'center_y':.5}
+                    
+
+            BoxLayout:
+                padding: dp(16),dp(16), dp(16),dp(16)
+                spacing: dp(5)
+                size_hint_y: None
+                height: dp(170)
+                orientation: 'vertical'
+                
+                MDLabel:
+                    text: 'Recently added Tracks'
+                    size_hint_y: None
+                    height: dp(30)
+                    halign: 'left'
+                    font_style: 'Subhead'
+                    color: 1,1,1,1
+
+                MDSeparator:
+                    color: 1,1,1,.2
+                    
+                BoxLayout:
+                    spacing: dp(8)
+                    Recently_added_songs:
+                        size_hint_y: None
+                        height: dp(100)
+                        source: 'pics/rihanna.png'
+                        text:'Shine Bright like a diamond'
+                        
+                    Recently_added_songs:
+                        size_hint_y: None
+                        height: dp(100)
+                        source: 'pics/kons.jpg'
+                        text:'Best house music 2018 album'
+                        
+                    Recently_added_songs:
+                        size_hint_y: None
+                        height: dp(100)
+                        source: 'pics/house.jpg'
+                        text:'House party mix 2018 '
+
+            Scrollview_tracks:                
+                id: scrll_track
+
+
+            FloatLayout:
+                size_hint_y: None
+                height: dp(0)
+
+                Image:
+                    source: 'pics/gradient.png'
+                    mipmap: True
+                    size_hint_y: None
+                    height: dp(30)
+                    allow_stretch: True
+                    keep_ratio: False
+                    nocache: True
+                    pos_hint: {'center_x':.5}
+                    
+                    
+                
+                    
